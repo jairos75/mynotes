@@ -10,7 +10,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MaterialApp(
-      title: 'Flutter Demo',
+      title: 'My Note App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -32,28 +32,29 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: AuthService.firebase().initialize(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          }
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              final user = AuthService.firebase().currentUSer;
-              if (user != null) {
-                if (user.isEmailVerified) {
-                  return const NotesView();
-                } else {
-                  return const VerifyEmailView();
-                }
+      future: AuthService.firebase().initialize(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        }
+        switch (snapshot.connectionState) {
+          case ConnectionState.done:
+            final user = AuthService.firebase().currentUSer;
+            if (user != null) {
+              if (user.isEmailVerified) {
+                return const NotesView();
               } else {
-                return const LoginView();
+                return const VerifyEmailView();
               }
-            default:
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-          }
-        });
+            } else {
+              return const LoginView();
+            }
+          default:
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+        }
+      },
+    );
   }
 }
