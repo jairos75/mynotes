@@ -1,6 +1,10 @@
 {
-    "cSpell.words": [
-        "autocorrect",
-        "mynotes"
-    ]
+  "cSpell.words": [
+    "autocorrect",
+    "AUTOINCREMENT",
+    "Cupertino",
+    "firestore",
+    "mynotes",
+    "sqflite"
+  ]
 }
